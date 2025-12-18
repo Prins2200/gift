@@ -1,0 +1,106 @@
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: #0e0f13;
+  color: #e8e8f0;
+  display: grid;
+  place-items: start center;
+  padding: 16px;
+  gap: 12px;
+}
+
+.hud {
+  max-width: 672px;
+  width: 100%;
+}
+.hud h1 { margin: 0 0 8px; font-size: 24px; }
+.hud .legend { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; opacity: 0.9; }
+.hud p { margin: 6px 0 0; opacity: 0.85; }
+
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 999px; background: #1a1c24; border: 1px solid #2a2d39; }
+.chip .swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+.chip.wall { gap: 6px; }
+.chip.wall::before { content: ""; display: inline-block; width: 14px; height: 14px; background: #2f3444; border: 1px solid #42485a; border-radius: 3px; }
+.chip.cat { background: #1d2636; border-color: #2a3a54; }
+.chip.broken { background: #321f27; border-color: #5e2a3b; }
+.chip.redmsg { background: #331919; border-color: #5c2a2a; }
+
+canvas#game {
+  width: 100%;
+  max-width: 672px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  border-radius: 12px; border: 1px solid #2a2d39; background: #0b0c10; box-shadow: 0 6px 24px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+/* Contenedor principal en columna para que el canvas se ajuste y haya respiración */
+body { grid-auto-rows: max-content; }
+/* Reservar espacio inferior dinámico para que el canvas no quede debajo de los controles */
+body { padding-bottom: calc(16px + var(--controls-h, 0px)); }
+
+.hud { padding: 0 8px; }
+
+/* Evitar que los controles cubran el canvas en pantallas muy bajas */
+@media (max-height: 600px) {
+  .touch-controls { bottom: 8px; }
+}
+@media (max-width: 360px) {
+  .hud h1 { font-size: 20px; }
+  .hud p { font-size: 14px; }
+}
+
+.modal { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,0.45); z-index: 100; }
+.modal.hidden { display: none; }
+.modal-content { background: #131620; border: 1px solid #2a2d39; border-radius: 12px; padding: 20px; max-width: 520px; width: calc(100% - 32px); }
+.modal-content h2 { margin: 0 0 8px; font-size: 22px; }
+.modal-content p { margin: 0 0 16px; opacity: 0.95; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+button {
+  background: #2a3a54; color: #e8e8f0; border: 1px solid #3a4f74; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-weight: 600;
+}
+button:hover { filter: brightness(1.08); }
+button:active { transform: translateY(1px); }
+
+/* Controles táctiles fijos en la parte inferior */
+.touch-controls {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  display: grid;
+  grid-auto-rows: auto;
+  gap: 8px;
+  align-items: center;
+  justify-items: center;
+  z-index: 20;
+  user-select: none;
+  touch-action: manipulation;
+}
+.touch-controls .row {
+  display: grid;
+  grid-template-columns: repeat(3, 64px);
+  gap: 8px;
+}
+.touch-controls .btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background: #1a1f2e;
+  border: 1px solid #2a2d39;
+  color: #e8e8f0;
+  font-size: 24px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+.touch-controls .btn:active { transform: translateY(1px); }
+.touch-controls .btn.up { grid-column: 2; }
+
+/* Ajustes responsivos para pantallas pequeñas */
+@media (max-width: 420px) {
+  .touch-controls .row { grid-template-columns: repeat(3, 56px); gap: 6px; }
+  .touch-controls .btn { width: 56px; height: 56px; font-size: 20px; }
+}
