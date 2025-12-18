@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laberinto en Corazón</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="hud">
+    <h1>Laberinto en forma de Corazón</h1>
+    <div class="legend">
+      <span class="chip cat">🐱</span> Dismerla
+      <span class="chip broken">💔</span> Corazón roto
+      <span class="chip redmsg">🟥</span> Mensaje rojo
+      
+    </div>
+    
+  </div>
+
+  <canvas id="game" width="672" height="672" aria-label="Laberinto corazón"></canvas>
+
+  <div class="touch-controls" aria-label="Controles táctiles" role="group">
+    <button class="btn dir up" data-dir="up" aria-label="Arriba">▲</button>
+    <div class="row">
+      <button class="btn dir left" data-dir="left" aria-label="Izquierda">◀</button>
+      <button class="btn dir down" data-dir="down" aria-label="Abajo">▼</button>
+      <button class="btn dir right" data-dir="right" aria-label="Derecha">▶</button>
+    </div>
+  </div>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content">
+      <h2 id="modal-title"></h2>
+      <p id="modal-message"></p>
+      <div class="modal-actions">
+        <button id="restart-btn">Volver al inicio</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
